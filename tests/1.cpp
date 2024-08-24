@@ -1,18 +1,24 @@
 #include <iostream>
 #include "../src/SGL.hpp"
 
-class Window : public sgl::Window
+class Triangle : public sgl::Visual
 {
+public:
+    const std::vector<glm::vec3> vertices = {
+        glm::vec3(0.0f, 0.5f, 0.0f),
+        glm::vec3(-0.5f, -0.5f, 0.0f),
+        glm::vec3(0.5f, -0.5f, 0.0f),
+    };
+
 private:
-    sgl::Debugger dbg;
     sgl::Ref<sgl::Program> program;
     sgl::Ref<sgl::Shader> vshader;
     sgl::Ref<sgl::Shader> fshader;
-    sgl::Ref<sgl::Buffer> vbo;
-    sgl::Ref<sgl::VertexArray> vao;
+    sgl::Ref<sgl::MeshData> mesh;
+    sgl::Ref<sgl::MeshVAO> vao;
 
-protected:
-    void _initialize() override
+public:
+    Triangle()
     {
         vshader = std::make_shared<sgl::Shader>(sgl::Shader::VERTEX);
         vshader->load_from_file("shaders/1.vs", false);
@@ -24,33 +30,37 @@ protected:
         program->link_shaders(*vshader, *fshader);
         program->use();
 
-        GLfloat vertices[] = {
-            0.0f,
-            0.5f,
-            0.0f,
+        mesh = std::make_shared<sgl::MeshData>();
+        mesh->vertices = vertices;
 
-            -0.5f,
-            -0.5f,
-            0.0f,
+        vao = sgl::create_VAO(*mesh);
+        vao->vertex_array->bind();
+    }
 
-            0.5f,
-            -0.5f,
-            0.0f,
-        };
+protected:
+    void _draw(DrawMode draw_mode)
+    {
+        glDrawArrays(GL_TRIANGLES, 0, 3);
+    }
+};
 
-        vao = std::make_shared<sgl::VertexArray>();
-        vao->bind();
+class Window : public sgl::Window
+{
+private:
+    sgl::Ref<sgl::Debugger> debugger;
+    sgl::Ref<Triangle> triangle;
 
-        vbo = std::make_shared<sgl::Buffer>(sgl::Buffer::ARRAY);
-        vbo->bind();
-        vbo->bind_data(sizeof(vertices), vertices, sgl::Buffer::STATIC_DRAW);
-        vbo->vertex_attrib(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), nullptr);
+protected:
+    void _initialize() override
+    {
+        debugger = std::make_shared<sgl::Debugger>();
+        triangle = std::make_shared<Triangle>();
     }
 
     void _draw() override
     {
         glClear(GL_COLOR_BUFFER_BIT);
-        glDrawArrays(GL_TRIANGLES, 0, 3);
+        triangle->request_draw();
     }
 };
 

@@ -15,4 +15,9 @@
 #include "system/time.hpp"
 #include "system/window.hpp"
 
+#include "visual/visual.hpp"
+#include "visual/mesh.hpp"
+#include "visual/material.hpp"
+#include "visual/mesh_instance.hpp"
+
 #endif

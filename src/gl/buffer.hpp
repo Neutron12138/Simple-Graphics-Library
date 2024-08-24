@@ -1,6 +1,7 @@
 #ifndef BUFFER_HPP
 #define BUFFER_HPP
 
+#include <vector>
 #include <GL/glew.h>
 #include "../system/string.hpp"
 #include "../base/noncopyable.hpp"
@@ -91,9 +92,15 @@ namespace sgl
             glBindBuffer(m_type, m_id);
         }
 
-        void bind_data(GLsizeiptr size, void *data, Usage usage)
+        void bind_data(GLsizeiptr size, const void *data, Usage usage = STATIC_DRAW)
         {
             glBufferData(m_type, size, data, usage);
+        }
+
+        template <typename T>
+        void bind_data(const std::vector<T> &data, Usage usage = STATIC_DRAW)
+        {
+            bind_data(sizeof(T) * data.size(), data.data(), usage);
         }
 
         void vertex_attrib(GLuint index, GLint size, GLenum type,
@@ -101,6 +108,27 @@ namespace sgl
         {
             glVertexAttribPointer(index, size, type, normalized, stride, pointer);
             glEnableVertexAttribArray(index);
+        }
+
+        void vertex_attrib(GLuint index, GLint size, GLenum type, const void *pointer = nullptr)
+        {
+            GLsizei stride = size;
+            switch (type)
+            {
+            case GL_FLOAT:
+                stride *= sizeof(GLfloat);
+                break;
+
+            case GL_INT:
+            case GL_UNSIGNED_INT:
+                stride *= sizeof(GLint);
+                break;
+
+            default:
+                break;
+            }
+
+            vertex_attrib(index, size, type, GL_FALSE, stride, pointer);
         }
     };
 

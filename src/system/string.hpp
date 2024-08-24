@@ -59,7 +59,7 @@ namespace sgl
     }
 
     //
-    // load string
+    // load text
     //
 
     String load_stream_text(std::istream &is)

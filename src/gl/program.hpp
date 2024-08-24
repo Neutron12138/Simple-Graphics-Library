@@ -1,6 +1,7 @@
 #ifndef PROGRAM_HPP
 #define PROGRAM_HPP
 
+#include <glm/glm.hpp>
 #include "shader.hpp"
 
 namespace sgl
@@ -8,6 +9,22 @@ namespace sgl
     class Program : public NonCopyable
     {
     public:
+        enum DefaultAttribLocation
+        {
+            POSITION,
+            NORMAL,
+            TEXCOORD,
+            TEXCOORD2,
+            COLOR,
+
+            CUSTOM0,
+            CUSTOM1,
+            CUSTOM2,
+            CUSTOM3,
+
+            COUNT,
+        };
+
         static void unuse()
         {
             glUseProgram(0);
@@ -101,6 +118,35 @@ namespace sgl
             attach_shader(fshader);
             attach_shader(gshader);
             return link_program();
+        }
+
+        GLint get_uniform_location(const String &name)
+        {
+            return glGetUniformLocation(m_id, name.data());
+        }
+
+        GLint get_attrib_location(const String &name)
+        {
+            return glGetAttribLocation(m_id, name.data());
+        }
+
+    public:
+        void set_uniform(const String &name, const glm::vec2 &value)
+        {
+            GLint location = get_uniform_location(name);
+            glUniform2f(location, value.x, value.y);
+        }
+
+        void set_uniform(const String &name, const glm::vec3 &value)
+        {
+            GLint location = get_uniform_location(name);
+            glUniform3f(location, value.x, value.y, value.z);
+        }
+
+        void set_uniform(const String &name, const glm::vec4 &value)
+        {
+            GLint location = get_uniform_location(name);
+            glUniform4f(location, value.x, value.y, value.z, value.w);
         }
     };
 
