@@ -27,7 +27,7 @@ namespace sgl
         virtual void debug(GLenum source, GLenum type, GLuint id, GLenum severity,
                            GLsizei length, const GLchar *message)
         {
-            sgl::print(message, "\n");
+            print(message, "\n");
         }
     };
 

@@ -2,7 +2,7 @@
 #define TIME_HPP
 
 #include <chrono>
-#include "../type.hpp"
+#include "../base/type.hpp"
 
 namespace sgl
 {

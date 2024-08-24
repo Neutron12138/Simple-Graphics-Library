@@ -3,10 +3,15 @@
 
 #include <iostream>
 #include <sstream>
-#include "../type.hpp"
+#include <fstream>
+#include "../base/type.hpp"
 
 namespace sgl
 {
+    //
+    // to string
+    //
+
     String to_string()
     {
         return {};
@@ -37,6 +42,10 @@ namespace sgl
         return to_string(arg) + to_string(args...);
     }
 
+    //
+    // print
+    //
+
     template <typename... Ts>
     void print_to_os(std::ostream &os, Ts... args)
     {
@@ -47,6 +56,34 @@ namespace sgl
     void print(Ts... args)
     {
         print_to_os(std::cout, args...);
+    }
+
+    //
+    // load string
+    //
+
+    String load_stream_text(std::istream &is)
+    {
+        std::string temp;
+        std::stringstream sstr;
+        while (std::getline(is, temp))
+            sstr << temp << std::endl;
+
+        return sstr.str();
+    }
+
+    String load_file_text(const String &path)
+    {
+        std::ifstream fin;
+        fin.open(path);
+        if (fin.fail())
+            throw to_string("Unable to open file: \"", path, "\".");
+
+        String result = load_stream_text(fin);
+
+        fin.close();
+
+        return result;
     }
 
 } // namespace sgl

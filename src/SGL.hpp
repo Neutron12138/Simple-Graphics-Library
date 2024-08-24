@@ -1,10 +1,15 @@
 #ifndef SGL_HPP
 #define SGL_HPP
 
-#include "type.hpp"
+#include "base/type.hpp"
+#include "base/noncopyable.hpp"
+#include "base/ref.hpp"
 
 #include "gl/debugger.hpp"
 #include "gl/shader.hpp"
+#include "gl/program.hpp"
+#include "gl/buffer.hpp"
+#include "gl/vertex_array.hpp"
 
 #include "system/string.hpp"
 #include "system/time.hpp"

@@ -34,8 +34,9 @@ namespace sgl
         }
 
     protected:
-        virtual void _process(Float64 delta) = 0;
-        virtual void _draw() = 0;
+        virtual void _initialize() {}
+        virtual void _process(Float64 delta) {}
+        virtual void _draw() {}
 
     protected:
         void _calc_delta()
@@ -74,6 +75,7 @@ namespace sgl
         void main_loop()
         {
             m_last_frame = get_current_time();
+            _initialize();
             while (m_window.isOpen())
             {
                 _process_frame();
