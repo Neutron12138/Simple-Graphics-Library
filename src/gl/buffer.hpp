@@ -11,13 +11,13 @@ namespace sgl
     class Buffer : public NonCopyable
     {
     public:
-        enum Type
+        enum Type : GLenum
         {
             ARRAY = GL_ARRAY_BUFFER,
             ELEMENT_ARRAY = GL_ELEMENT_ARRAY_BUFFER,
         };
 
-        enum Usage
+        enum Usage : GLenum
         {
             STREAM_DRAW = GL_STREAM_DRAW,
             STREAM_READ = GL_STREAM_READ,

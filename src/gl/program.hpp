@@ -132,28 +132,49 @@ namespace sgl
         }
 
     public:
+        void set_uniform(GLint location, const glm::vec2 &value)
+        {
+            glUniform2f(location, value.x, value.y);
+        }
+
+        void set_uniform(GLint location, const glm::vec3 &value)
+        {
+            glUniform3f(location, value.x, value.y, value.z);
+        }
+
+        void set_uniform(GLint location, const glm::vec4 &value)
+        {
+            glUniform4f(location, value.x, value.y, value.z, value.w);
+        }
+
+        void set_uniform(GLint location, const glm::mat4 &value, GLenum transpose = GL_FALSE)
+        {
+            glUniformMatrix4fv(location, 1, transpose, glm::value_ptr(value));
+        }
+
+    public:
         void set_uniform(const String &name, const glm::vec2 &value)
         {
             GLint location = get_uniform_location(name);
-            glUniform2f(location, value.x, value.y);
+            set_uniform(location, value);
         }
 
         void set_uniform(const String &name, const glm::vec3 &value)
         {
             GLint location = get_uniform_location(name);
-            glUniform3f(location, value.x, value.y, value.z);
+            set_uniform(location, value);
         }
 
         void set_uniform(const String &name, const glm::vec4 &value)
         {
             GLint location = get_uniform_location(name);
-            glUniform4f(location, value.x, value.y, value.z, value.w);
+            set_uniform(location, value);
         }
 
         void set_uniform(const String &name, const glm::mat4 &value, GLenum transpose = GL_FALSE)
         {
             GLint location = get_uniform_location(name);
-            glUniformMatrix4fv(location, 1, transpose, glm::value_ptr(value));
+            set_uniform(location, value, transpose);
         }
     };
 

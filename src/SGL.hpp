@@ -10,6 +10,7 @@
 #include "gl/program.hpp"
 #include "gl/buffer.hpp"
 #include "gl/vertex_array.hpp"
+#include "gl/uniform.hpp"
 
 #include "system/string.hpp"
 #include "system/time.hpp"

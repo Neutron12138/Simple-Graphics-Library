@@ -10,7 +10,7 @@ namespace sgl
     class Shader : public NonCopyable
     {
     public:
-        enum Type
+        enum Type : GLenum
         {
             VERTEX = GL_VERTEX_SHADER,
             FRAGMENT = GL_FRAGMENT_SHADER,

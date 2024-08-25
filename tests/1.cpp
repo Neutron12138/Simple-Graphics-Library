@@ -16,6 +16,8 @@ struct TriangleData
     sgl::Ref<sgl::Shader> fshader;
     sgl::Ref<sgl::MeshData> mesh;
     sgl::Ref<sgl::MeshVAO> vao;
+    sgl::Ref<sgl::UniformValueVec3> color;
+    sgl::Ref<sgl::UniformValueMat4> model;
 
     TriangleData()
     {
@@ -34,6 +36,9 @@ struct TriangleData
 
         vao = sgl::create_VAO(*mesh);
         vao->vertex_array->bind();
+
+        color = std::make_shared<sgl::UniformValueVec3>(program, "color");
+        model = std::make_shared<sgl::UniformValueMat4>(program, "model");
     }
 };
 
@@ -53,8 +58,12 @@ public:
 protected:
     void _draw(DrawMode draw_mode)
     {
-        data->program->set_uniform("model", matrix);
-        data->program->set_uniform("color", color);
+        data->color->value = color;
+        data->color->update();
+
+        data->model->value = matrix;
+        data->model->update();
+
         glDrawArrays(GL_TRIANGLES, 0, 3);
     }
 };
