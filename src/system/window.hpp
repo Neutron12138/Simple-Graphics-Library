@@ -21,6 +21,8 @@ namespace sgl
         sf::RenderWindow m_window;
         Float64 m_last_frame = 0.0f;
         Float64 m_delta = 0.0f;
+        Bool m_running = false;
+        Int32 m_quit_code = 0;
 
     public:
         Window(const std::string &title = "", UInt32 width = 1152, UInt32 height = 648)
@@ -51,7 +53,7 @@ namespace sgl
             switch (event.type)
             {
             case sf::Event::EventType::Closed:
-                m_window.close();
+                request_quit(EXIT_SUCCESS);
                 break;
             }
         }
@@ -72,14 +74,25 @@ namespace sgl
         }
 
     public:
-        void main_loop()
+        virtual void request_quit(Int32 code = EXIT_SUCCESS)
+        {
+            m_running = false;
+            m_quit_code = code;
+            m_window.close();
+        }
+
+        virtual Int32 main_loop()
         {
             m_last_frame = get_current_time();
             _initialize();
-            while (m_window.isOpen())
+
+            m_running = true;
+            while (m_window.isOpen() && m_running)
             {
                 _process_frame();
             }
+
+            return m_quit_code;
         }
     };
 

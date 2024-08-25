@@ -2,6 +2,7 @@
 #define PROGRAM_HPP
 
 #include <glm/glm.hpp>
+#include <glm/gtc/type_ptr.hpp>
 #include "shader.hpp"
 
 namespace sgl
@@ -147,6 +148,12 @@ namespace sgl
         {
             GLint location = get_uniform_location(name);
             glUniform4f(location, value.x, value.y, value.z, value.w);
+        }
+
+        void set_uniform(const String &name, const glm::mat4 &value, GLenum transpose = GL_FALSE)
+        {
+            GLint location = get_uniform_location(name);
+            glUniformMatrix4fv(location, 1, transpose, glm::value_ptr(value));
         }
     };
 

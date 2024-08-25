@@ -19,5 +19,6 @@
 #include "visual/mesh.hpp"
 #include "visual/material.hpp"
 #include "visual/mesh_instance.hpp"
+#include "visual/transform3d.hpp"
 
 #endif

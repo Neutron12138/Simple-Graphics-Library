@@ -9,6 +9,7 @@ namespace sgl
     using Bool = bool;
     using Byte = std::uint8_t;
     using Char = char;
+    using SizeT = std::size_t;
 
     using Int8 = std::int8_t;
     using Int16 = std::int16_t;
