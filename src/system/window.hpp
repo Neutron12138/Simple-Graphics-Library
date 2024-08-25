@@ -37,6 +37,7 @@ namespace sgl
 
     protected:
         virtual void _initialize() {}
+        virtual void _terminate() {}
         virtual void _process(Float64 delta) {}
         virtual void _draw() {}
 
@@ -83,14 +84,17 @@ namespace sgl
 
         virtual Int32 main_loop()
         {
+            m_running = true;
             m_last_frame = get_current_time();
+
             _initialize();
 
-            m_running = true;
             while (m_window.isOpen() && m_running)
             {
                 _process_frame();
             }
+
+            _terminate();
 
             return m_quit_code;
         }

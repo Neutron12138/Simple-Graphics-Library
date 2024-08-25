@@ -51,28 +51,46 @@ namespace sgl
 
         vao->vertex_array->bind();
 
-        vao->vertices_buffer->bind();
-        vao->vertices_buffer->bind_data(data.vertices, usage);
-        vao->vertices_buffer->vertex_attrib(Program::POSITION, 3, GL_FLOAT);
+        if (!data.vertices.empty())
+        {
+            vao->vertices_buffer->bind();
+            vao->vertices_buffer->bind_data(data.vertices, usage);
+            vao->vertices_buffer->vertex_attrib(Program::POSITION, 3, GL_FLOAT);
+        }
 
-        vao->normals_buffer->bind();
-        vao->normals_buffer->bind_data(data.normals, usage);
-        vao->normals_buffer->vertex_attrib(Program::NORMAL, 3, GL_FLOAT);
+        if (!data.normals.empty())
+        {
+            vao->normals_buffer->bind();
+            vao->normals_buffer->bind_data(data.normals, usage);
+            vao->normals_buffer->vertex_attrib(Program::NORMAL, 3, GL_FLOAT);
+        }
 
-        vao->texCoords_buffer->bind();
-        vao->texCoords_buffer->bind_data(data.texCoords, usage);
-        vao->texCoords_buffer->vertex_attrib(Program::TEXCOORD, 2, GL_FLOAT);
+        if (!data.texCoords.empty())
+        {
+            vao->texCoords_buffer->bind();
+            vao->texCoords_buffer->bind_data(data.texCoords, usage);
+            vao->texCoords_buffer->vertex_attrib(Program::TEXCOORD, 2, GL_FLOAT);
+        }
 
-        vao->texCoords2_buffer->bind();
-        vao->texCoords2_buffer->bind_data(data.texCoords2, usage);
-        vao->texCoords2_buffer->vertex_attrib(Program::TEXCOORD2, 2, GL_FLOAT);
+        if (!data.texCoords2.empty())
+        {
+            vao->texCoords2_buffer->bind();
+            vao->texCoords2_buffer->bind_data(data.texCoords2, usage);
+            vao->texCoords2_buffer->vertex_attrib(Program::TEXCOORD2, 2, GL_FLOAT);
+        }
 
-        vao->colors_buffer->bind();
-        vao->colors_buffer->bind_data(data.colors, usage);
-        vao->colors_buffer->vertex_attrib(Program::COLOR, 4, GL_FLOAT);
+        if (!data.colors.empty())
+        {
+            vao->colors_buffer->bind();
+            vao->colors_buffer->bind_data(data.colors, usage);
+            vao->colors_buffer->vertex_attrib(Program::COLOR, 4, GL_FLOAT);
+        }
 
-        vao->elements_buffer->bind();
-        vao->elements_buffer->bind_data(data.elements, usage);
+        if (!data.elements.empty())
+        {
+            vao->elements_buffer->bind();
+            vao->elements_buffer->bind_data(data.elements, usage);
+        }
 
         vao->vertex_array->unbind();
 

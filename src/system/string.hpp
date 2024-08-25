@@ -9,7 +9,7 @@
 namespace sgl
 {
     //
-    // to string
+    // 转化为字符串
     //
 
     String to_string()
@@ -43,7 +43,7 @@ namespace sgl
     }
 
     //
-    // print
+    // 输出到流
     //
 
     template <typename... Ts>
@@ -59,7 +59,7 @@ namespace sgl
     }
 
     //
-    // load text
+    // 加载文本
     //
 
     String load_stream_text(std::istream &is)

@@ -57,7 +57,6 @@ namespace sgl
         void _generate_id(Type type)
         {
             glCreateBuffers(1, &m_id);
-            glBindBuffer(type, m_id);
             if (m_id == 0)
                 throw to_string("Failed to create buffer, type: ", type, ".");
         }
