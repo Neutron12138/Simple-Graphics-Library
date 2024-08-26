@@ -8,6 +8,7 @@
 #include "system/string.hpp"
 #include "system/time.hpp"
 #include "system/window.hpp"
+#include "system/image.hpp"
 
 #include "gl/debugger.hpp"
 #include "gl/shader.hpp"
@@ -15,6 +16,8 @@
 #include "gl/buffer.hpp"
 #include "gl/vertex_array.hpp"
 #include "gl/uniform.hpp"
+#include "gl/texture.hpp"
+#include "gl/frame_buffer.hpp"
 
 #include "shader/material.hpp"
 #include "shader/shader_material.hpp"
