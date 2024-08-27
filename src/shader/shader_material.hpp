@@ -27,10 +27,7 @@ namespace sgl
         ShaderMaterial(const Ref<Program> &program) : m_program(program) {}
 
     public:
-        const Ref<Program> &get_program() const
-        {
-            return m_program;
-        }
+        const Ref<Program> &get_program() const { return m_program; }
 
     public:
         void begin() override

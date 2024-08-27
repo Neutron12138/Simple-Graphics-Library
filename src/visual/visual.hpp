@@ -15,45 +15,23 @@ namespace sgl
             UNSHADED,
         };
 
-    private:
-        Bool m_visible = true;
+    public:
+        Bool visible = true;
 
     public:
-        Visual(Bool visible = true) : m_visible(visible) {}
+        Visual(Bool v = true) : visible(v) {}
         virtual ~Visual() = default;
 
     protected:
         virtual void _draw(DrawMode draw_mode = NORMAL) = 0;
 
     public:
-        Bool get_visible() const
-        {
-            return m_visible;
-        }
-
-        void set_visible(Bool visible)
-        {
-            m_visible = visible;
-        }
-
-        Bool is_visible() const
-        {
-            return m_visible;
-        }
-
-        void show()
-        {
-            m_visible = true;
-        }
-
-        void hide()
-        {
-            m_visible = false;
-        }
+        void show() { visible = true; }
+        void hide() { visible = false; }
 
         void request_draw(DrawMode draw_mode = NORMAL)
         {
-            if (m_visible)
+            if (visible)
                 _draw(draw_mode);
         }
     };

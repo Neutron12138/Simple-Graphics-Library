@@ -46,15 +46,8 @@ namespace sgl
         }
 
     public:
-        GLuint get_id() const
-        {
-            return m_id;
-        }
-
-        Bool is_valid() const
-        {
-            return m_id != 0;
-        }
+        GLuint get_id() const { return m_id; }
+        Bool is_valid() const { return m_id != 0; }
 
     public:
         void bind()

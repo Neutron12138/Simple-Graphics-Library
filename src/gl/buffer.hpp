@@ -70,20 +70,9 @@ namespace sgl
         }
 
     public:
-        Type get_type() const
-        {
-            return m_type;
-        }
-
-        GLuint get_id() const
-        {
-            return m_id;
-        }
-
-        Bool is_valid() const
-        {
-            return m_id != 0;
-        }
+        Type get_type() const { return m_type; }
+        GLuint get_id() const { return m_id; }
+        Bool is_valid() const { return m_id != 0; }
 
     public:
         void bind()

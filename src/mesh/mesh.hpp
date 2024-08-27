@@ -17,7 +17,6 @@ namespace sgl
         Ref<Buffer> vertices_buffer;
         Ref<Buffer> normals_buffer;
         Ref<Buffer> texCoords_buffer;
-        Ref<Buffer> texCoords2_buffer;
         Ref<Buffer> colors_buffer;
         Ref<Buffer> elements_buffer;
 
@@ -28,7 +27,6 @@ namespace sgl
             vertices_buffer = std::make_shared<Buffer>(Buffer::ARRAY);
             normals_buffer = std::make_shared<Buffer>(Buffer::ARRAY);
             texCoords_buffer = std::make_shared<Buffer>(Buffer::ARRAY);
-            texCoords2_buffer = std::make_shared<Buffer>(Buffer::ARRAY);
             colors_buffer = std::make_shared<Buffer>(Buffer::ARRAY);
             elements_buffer = std::make_shared<Buffer>(Buffer::ELEMENT_ARRAY);
         }
@@ -39,7 +37,6 @@ namespace sgl
         std::vector<glm::vec3> vertices;
         std::vector<glm::vec3> normals;
         std::vector<glm::vec2> texCoords;
-        std::vector<glm::vec2> texCoords2;
         std::vector<glm::vec4> colors;
         std::vector<GLuint> elements;
     };
@@ -70,13 +67,6 @@ namespace sgl
             vao->texCoords_buffer->bind();
             vao->texCoords_buffer->bind_data(data.texCoords, usage);
             vao->texCoords_buffer->vertex_attrib(Program::TEXCOORD, 2, GL_FLOAT);
-        }
-
-        if (!data.texCoords2.empty())
-        {
-            vao->texCoords2_buffer->bind();
-            vao->texCoords2_buffer->bind_data(data.texCoords2, usage);
-            vao->texCoords2_buffer->vertex_attrib(Program::TEXCOORD2, 2, GL_FLOAT);
         }
 
         if (!data.colors.empty())

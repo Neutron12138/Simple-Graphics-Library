@@ -1,6 +1,8 @@
 #ifndef SGL_HPP
 #define SGL_HPP
 
+#define STB_IMAGE_IMPLEMENTATION
+
 #include "base/type.hpp"
 #include "base/noncopyable.hpp"
 #include "base/ref.hpp"
@@ -17,6 +19,7 @@
 #include "gl/vertex_array.hpp"
 #include "gl/uniform.hpp"
 #include "gl/texture.hpp"
+#include "gl/texture2d.hpp"
 #include "gl/frame_buffer.hpp"
 
 #include "shader/material.hpp"

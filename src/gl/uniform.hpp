@@ -31,20 +31,9 @@ namespace sgl
         }
 
     public:
-        const Ref<Program> &get_program() const
-        {
-            return m_program;
-        }
-
-        const String &get_name() const
-        {
-            return m_name;
-        }
-
-        GLint get_location() const
-        {
-            return m_location;
-        }
+        const Ref<Program> &get_program() const { return m_program; }
+        const String &get_name() const { return m_name; }
+        GLint get_location() const { return m_location; }
     };
 
     //
