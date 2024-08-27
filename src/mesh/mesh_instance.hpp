@@ -1,10 +1,10 @@
 #ifndef MESH_INSTANCE_HPP
 #define MESH_INSTANCE_HPP
 
-#include "visual.hpp"
+#include "../visual/visual.hpp"
 #include "../shader/material.hpp"
 #include "../mesh/mesh.hpp"
-#include "draw_step.hpp"
+#include "../visual/draw_step.hpp"
 
 namespace sgl
 {

@@ -11,8 +11,14 @@ namespace sgl
     class Ref : public std::shared_ptr<T>
     {
     public:
-        using std::shared_ptr<T>::shared_ptr;
         using std::shared_ptr<T>::operator=;
+
+        Ref() : std::shared_ptr<T>() {}
+        Ref(std::nullptr_t) : std::shared_ptr<T>(nullptr) {}
+        template <typename P>
+        Ref(P *ptr) : std::shared_ptr<T>(ptr) {}
+        Ref(const std::shared_ptr<T> &from) : std::shared_ptr<T>(from) {}
+        Ref(const Ref<T> &from) : std::shared_ptr<T>(from) {}
 
     public:
         T &operator*() const

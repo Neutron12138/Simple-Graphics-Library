@@ -3,25 +3,12 @@
 
 class TriangleMaterial : public sgl::ShaderMaterial
 {
-private:
-    sgl::Ref<sgl::Shader> vshader;
-    sgl::Ref<sgl::Shader> fshader;
-
 public:
     sgl::Ref<sgl::UniformValueMat4> model;
 
 public:
-    TriangleMaterial()
+    TriangleMaterial() : sgl::ShaderMaterial(*sgl::ShaderMaterial::load_from_file("shaders/1.vs", "shaders/1.fs"))
     {
-        vshader = std::make_shared<sgl::Shader>(sgl::Shader::VERTEX);
-        vshader->load_from_file("shaders/1.vs");
-
-        fshader = std::make_shared<sgl::Shader>(sgl::Shader::FRAGMENT);
-        fshader->load_from_file("shaders/1.fs");
-
-        m_program = std::make_shared<sgl::Program>();
-        m_program->link_shaders(*vshader, *fshader);
-
         model = std::make_shared<sgl::UniformValueMat4>(m_program, "model");
     }
 

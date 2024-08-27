@@ -18,6 +18,15 @@ namespace sgl
             COMPUTE = GL_COMPUTE_SHADER,
         };
 
+        static Ref<Shader> load_from_file(Type type, const String &path, Bool output = true)
+        {
+            Ref<Shader> result = std::make_shared<Shader>(type);
+            if (result->load_from_file(path, output))
+                return result;
+            else
+                return nullptr;
+        }
+
     private:
         Type m_type;
         GLuint m_id = 0;
@@ -91,19 +100,19 @@ namespace sgl
             return success;
         }
 
-        Bool load_from_string(const String &source, bool output = true)
+        Bool load_from_string(const String &source, Bool output = true)
         {
             set_source(source);
             return compile_shader();
         }
 
-        Bool load_from_stream(std::istream &is, bool output = true)
+        Bool load_from_stream(std::istream &is, Bool output = true)
         {
             String source = load_stream_text(is);
             return load_from_string(source);
         }
 
-        Bool load_from_file(const String &path, bool output = true)
+        Bool load_from_file(const String &path, Bool output = true)
         {
             String source = load_file_text(path);
             return load_from_string(source);
