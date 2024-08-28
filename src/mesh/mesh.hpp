@@ -10,25 +10,29 @@
 
 namespace sgl
 {
+    //
+    // 基本版
+    //
+
     struct MeshVAO
     {
-        Ref<VertexArray> vertex_array;
+        Ref<VertexArray> vao;
 
-        Ref<Buffer> vertices_buffer;
-        Ref<Buffer> normals_buffer;
-        Ref<Buffer> texCoords_buffer;
-        Ref<Buffer> colors_buffer;
-        Ref<Buffer> elements_buffer;
+        Ref<Buffer> vertices;
+        Ref<Buffer> normals;
+        Ref<Buffer> texCoords;
+        Ref<Buffer> colors;
+        Ref<Buffer> elements;
 
         MeshVAO()
         {
-            vertex_array = std::make_shared<VertexArray>();
+            vao = std::make_shared<VertexArray>();
 
-            vertices_buffer = std::make_shared<Buffer>(Buffer::ARRAY);
-            normals_buffer = std::make_shared<Buffer>(Buffer::ARRAY);
-            texCoords_buffer = std::make_shared<Buffer>(Buffer::ARRAY);
-            colors_buffer = std::make_shared<Buffer>(Buffer::ARRAY);
-            elements_buffer = std::make_shared<Buffer>(Buffer::ELEMENT_ARRAY);
+            vertices = std::make_shared<Buffer>(Buffer::ARRAY);
+            normals = std::make_shared<Buffer>(Buffer::ARRAY);
+            texCoords = std::make_shared<Buffer>(Buffer::ARRAY);
+            colors = std::make_shared<Buffer>(Buffer::ARRAY);
+            elements = std::make_shared<Buffer>(Buffer::ELEMENT_ARRAY);
         }
     };
 
@@ -41,51 +45,39 @@ namespace sgl
         std::vector<GLuint> elements;
     };
 
-    Ref<MeshVAO> create_VAO(const MeshData &data, Buffer::Usage usage = Buffer::STATIC_DRAW)
+    //
+    // 拓展版
+    //
+
+    struct MeshVAOExt : public MeshVAO
     {
-        Ref<MeshVAO> vao;
-        vao = std::make_shared<MeshVAO>();
+        Ref<Buffer> texCoords2;
+        Ref<Buffer> custom0;
+        Ref<Buffer> custom1;
+        Ref<Buffer> custom2;
+        Ref<Buffer> custom3;
+        Ref<Buffer> matrices;
 
-        vao->vertex_array->bind();
-
-        if (!data.vertices.empty())
+        MeshVAOExt() : MeshVAO()
         {
-            vao->vertices_buffer->bind();
-            vao->vertices_buffer->bind_data(data.vertices, usage);
-            vao->vertices_buffer->vertex_attrib(Program::POSITION, 3, GL_FLOAT);
+            texCoords2 = std::make_shared<Buffer>(Buffer::ARRAY);
+            custom0 = std::make_shared<Buffer>(Buffer::ARRAY);
+            custom1 = std::make_shared<Buffer>(Buffer::ARRAY);
+            custom2 = std::make_shared<Buffer>(Buffer::ARRAY);
+            custom3 = std::make_shared<Buffer>(Buffer::ARRAY);
+            matrices = std::make_shared<Buffer>(Buffer::ARRAY);
         }
+    };
 
-        if (!data.normals.empty())
-        {
-            vao->normals_buffer->bind();
-            vao->normals_buffer->bind_data(data.normals, usage);
-            vao->normals_buffer->vertex_attrib(Program::NORMAL, 3, GL_FLOAT);
-        }
-
-        if (!data.texCoords.empty())
-        {
-            vao->texCoords_buffer->bind();
-            vao->texCoords_buffer->bind_data(data.texCoords, usage);
-            vao->texCoords_buffer->vertex_attrib(Program::TEXCOORD, 2, GL_FLOAT);
-        }
-
-        if (!data.colors.empty())
-        {
-            vao->colors_buffer->bind();
-            vao->colors_buffer->bind_data(data.colors, usage);
-            vao->colors_buffer->vertex_attrib(Program::COLOR, 4, GL_FLOAT);
-        }
-
-        if (!data.elements.empty())
-        {
-            vao->elements_buffer->bind();
-            vao->elements_buffer->bind_data(data.elements, usage);
-        }
-
-        vao->vertex_array->unbind();
-
-        return vao;
-    }
+    struct MeshDataExt : public MeshData
+    {
+        std::vector<glm::vec2> texCoords2;
+        std::vector<glm::vec4> custom0;
+        std::vector<glm::vec4> custom1;
+        std::vector<glm::vec4> custom2;
+        std::vector<glm::vec4> custom3;
+        std::vector<glm::mat4> matrices;
+    };
 
 } // namespace sgl
 

@@ -34,8 +34,8 @@ struct TriangleData
         mesh = std::make_shared<sgl::MeshData>();
         mesh->vertices = vertices;
 
-        vao = sgl::create_VAO(*mesh);
-        vao->vertex_array->bind();
+        vao = sgl::MeshTool::create_VAO(*mesh);
+        vao->vao->bind();
 
         color = std::make_shared<sgl::UniformValueVec3>(program, "color");
         model = std::make_shared<sgl::UniformValueMat4>(program, "model");

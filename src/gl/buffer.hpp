@@ -30,7 +30,13 @@ namespace sgl
             DYNAMIC_DRAW = GL_DYNAMIC_DRAW,
             DYNAMIC_READ = GL_DYNAMIC_READ,
             DYNAMIC_COPY = GL_DYNAMIC_COPY,
+        };
 
+        enum DataType : GLenum
+        {
+            FLOAT = GL_FLOAT,
+            INT = GL_INT,
+            UNSIGNED_INT = GL_UNSIGNED_INT,
         };
 
         static void unbind(Type type)
@@ -91,32 +97,49 @@ namespace sgl
             bind_data(sizeof(T) * data.size(), data.data(), usage);
         }
 
-        void vertex_attrib(GLuint index, GLint size, GLenum type,
-                           GLboolean normalized, GLsizei stride, const void *pointer)
+        void vertex_attrib(GLuint index, GLint size, DataType type, GLboolean normalized,
+                           GLsizei stride, const void *pointer = nullptr, GLuint divisor = 0)
         {
             glVertexAttribPointer(index, size, type, normalized, stride, pointer);
             glEnableVertexAttribArray(index);
+            glVertexAttribDivisor(index, divisor);
         }
 
-        void vertex_attrib(GLuint index, GLint size, GLenum type, const void *pointer = nullptr)
+        void vertex_attrib(GLuint index, GLint size, const void *pointer = nullptr, GLuint divisor = 0)
         {
-            GLsizei stride = size;
-            switch (type)
-            {
-            case GL_FLOAT:
-                stride *= sizeof(GLfloat);
-                break;
+            vertex_attrib(index, size, FLOAT, GL_FALSE, size * sizeof(GLfloat), pointer, divisor);
+        }
 
-            case GL_INT:
-            case GL_UNSIGNED_INT:
-                stride *= sizeof(GLint);
-                break;
+    public:
+        void bind_vertices(GLuint index, const std::vector<glm::vec2> &vertices, Usage usage = STATIC_DRAW)
+        {
+            bind();
+            bind_data(vertices, usage);
+            vertex_attrib(index, 2);
+        }
 
-            default:
-                break;
-            }
+        void bind_vertices(GLuint index, const std::vector<glm::vec3> &vertices, Usage usage = STATIC_DRAW)
+        {
+            bind();
+            bind_data(vertices, usage);
+            vertex_attrib(index, 3);
+        }
 
-            vertex_attrib(index, size, type, GL_FALSE, stride, pointer);
+        void bind_vertices(GLuint index, const std::vector<glm::vec4> &vertices, Usage usage = STATIC_DRAW)
+        {
+            bind();
+            bind_data(vertices, usage);
+            vertex_attrib(index, 4);
+        }
+
+        void bind_vertices(GLuint index, const std::vector<glm::mat4> &matrices, Usage usage = STATIC_DRAW)
+        {
+            bind();
+            bind_data(matrices, usage);
+            vertex_attrib(index + 0, 4, nullptr, 1);
+            vertex_attrib(index + 1, 4, nullptr, 1);
+            vertex_attrib(index + 2, 4, nullptr, 1);
+            vertex_attrib(index + 3, 4, nullptr, 1);
         }
     };
 

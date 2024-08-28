@@ -45,12 +45,12 @@ namespace sgl
         void _draw(DrawMode draw_mode) override
         {
             material->begin();
-            vao->vertex_array->bind();
+            vao->vao->bind();
 
             draw_step->draw();
 
             material->end();
-            vao->vertex_array->unbind();
+            vao->vao->unbind();
         }
     };
 

@@ -30,7 +30,7 @@ public:
         data->texCoords = texCoords;
 
         material = sgl::ShaderMaterial::load_from_file("shaders/2.vs", "shaders/2.fs");
-        vao = sgl::create_VAO(*data);
+        vao = sgl::MeshTool::create_VAO(*data);
 
         sgl::DrawStep::DrawArrays arrays;
         arrays.mode = sgl::DrawStep::TRIANGLE_FAN;

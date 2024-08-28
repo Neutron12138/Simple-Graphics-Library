@@ -23,7 +23,7 @@ namespace sgl
             CUSTOM2,
             CUSTOM3,
 
-            COUNT,
+            MATRIX,
         };
 
         static void unuse()

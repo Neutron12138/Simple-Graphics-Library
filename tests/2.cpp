@@ -39,7 +39,7 @@ public:
         data = std::make_shared<sgl::MeshData>();
         data->vertices = vertices;
 
-        vao = sgl::create_VAO(*data);
+        vao = sgl::MeshTool::create_VAO(*data);
 
         sgl::DrawStep::DrawArrays arrays;
         arrays.mode = sgl::DrawStep::TRIANGLES;

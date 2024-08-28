@@ -28,6 +28,8 @@
 #include "shader/shader_generator.hpp"
 
 #include "mesh/mesh.hpp"
+#include "mesh/mesh_tool.hpp"
+#include "mesh/mesh_generator.hpp"
 #include "mesh/mesh_instance.hpp"
 
 #include "visual/visual.hpp"
