@@ -12,6 +12,7 @@
 #include "system/window.hpp"
 #include "system/image.hpp"
 
+#include "gl/draw_call.hpp"
 #include "gl/debugger.hpp"
 #include "gl/shader.hpp"
 #include "gl/program.hpp"
@@ -33,7 +34,7 @@
 #include "mesh/mesh_instance.hpp"
 
 #include "visual/visual.hpp"
-#include "visual/draw_step.hpp"
+#include "visual/draw_steps.hpp"
 #include "visual/transform3d.hpp"
 
 #include "environment/environment.hpp"

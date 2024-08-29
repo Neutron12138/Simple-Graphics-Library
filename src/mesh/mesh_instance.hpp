@@ -4,53 +4,57 @@
 #include "../visual/visual.hpp"
 #include "../shader/material.hpp"
 #include "../mesh/mesh.hpp"
-#include "../visual/draw_step.hpp"
+#include "../visual/draw_steps.hpp"
 
 namespace sgl
 {
-    //
-    // 普通的网格实例
-    //
-
     class MeshInstance : public Visual
     {
     public:
-        Ref<Material> material;
-        Ref<MeshVAO> vao;
+        Ref<Material> material = nullptr;
+        Ref<Mesh> mesh = std::make_shared<Mesh>();
 
     public:
         MeshInstance() {}
         MeshInstance(const Ref<Material> &mat,
-                     const Ref<MeshVAO> &va) : material(mat),
-                                               vao(va) {}
-    };
-
-    //
-    // 绘制图元的网格实例
-    //
-
-    class PrimitiveMeshInstance : public MeshInstance
-    {
-    public:
-        Ref<DrawStep> draw_step;
-
-    public:
-        PrimitiveMeshInstance() {}
-        PrimitiveMeshInstance(const Ref<Material> &mat,
-                              const Ref<MeshVAO> &va,
-                              const Ref<DrawStep> &step) : MeshInstance(mat, va),
-                                                           draw_step(step) {}
+                     const Ref<Mesh> &m) : material(mat),
+                                           mesh(m) {}
 
     protected:
         void _draw(DrawMode draw_mode) override
         {
             material->begin();
-            vao->vao->bind();
+            mesh->vao->vao->bind();
 
-            draw_step->draw();
+            mesh->steps->draw();
 
             material->end();
-            vao->vao->unbind();
+            mesh->vao->vao->unbind();
+        }
+    };
+
+    class MeshExtInstance : public Visual
+    {
+    public:
+        Ref<Material> material = nullptr;
+        Ref<MeshExt> mesh = std::make_shared<MeshExt>();
+
+    public:
+        MeshExtInstance() {}
+        MeshExtInstance(const Ref<Material> &mat,
+                        const Ref<MeshExt> &m) : material(mat),
+                                                 mesh(m) {}
+
+    protected:
+        void _draw(DrawMode draw_mode) override
+        {
+            material->begin();
+            mesh->vao->vao->bind();
+
+            mesh->steps->draw();
+
+            material->end();
+            mesh->vao->vao->unbind();
         }
     };
 

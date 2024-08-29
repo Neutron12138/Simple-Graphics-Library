@@ -21,7 +21,7 @@ public:
     }
 };
 
-class Triangle : public sgl::PrimitiveMeshInstance, public sgl::Transform3D
+class TriangleMesh : public sgl::Mesh
 {
 public:
     const std::vector<glm::vec3> vertices = {
@@ -30,21 +30,26 @@ public:
         glm::vec3(0.5f, -0.5f, 0.0f),
     };
 
-private:
-    sgl::Ref<sgl::MeshData> data;
+public:
+    TriangleMesh()
+    {
+        data->vertices = vertices;
+        vao = sgl::MeshTool::create_VAO(*data);
 
+        sgl::DrawCall::DrawArrays arrays;
+        arrays.mode = sgl::DrawCall::TRIANGLES;
+        arrays.count = 3;
+        steps->draw_calls.push_back(arrays);
+    }
+};
+
+class Triangle : public sgl::MeshInstance, public sgl::Transform3D
+{
 public:
     Triangle()
     {
-        data = std::make_shared<sgl::MeshData>();
-        data->vertices = vertices;
-
-        vao = sgl::MeshTool::create_VAO(*data);
-
-        sgl::DrawStep::DrawArrays arrays;
-        arrays.mode = sgl::DrawStep::TRIANGLES;
-        arrays.count = 3;
-        draw_step = std::make_shared<sgl::DrawStep>(arrays);
+        material = std::make_shared<TriangleMaterial>();
+        mesh = std::make_shared<TriangleMesh>();
     }
 };
 

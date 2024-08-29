@@ -1,7 +1,7 @@
 #include <iostream>
 #include "../src/SGL.hpp"
 
-class Rect : public sgl::PrimitiveMeshInstance
+class Rect : public sgl::MeshInstance
 {
 public:
     const std::vector<glm::vec3> vertices = {
@@ -19,23 +19,21 @@ public:
     };
 
 private:
-    sgl::Ref<sgl::MeshData> data;
     sgl::Ref<sgl::Texture2D> texture;
 
 public:
     Rect()
     {
-        data = std::make_shared<sgl::MeshData>();
-        data->vertices = vertices;
-        data->texCoords = texCoords;
+        mesh->data->vertices = vertices;
+        mesh->data->texCoords = texCoords;
+        mesh->vao = sgl::MeshTool::create_VAO(*mesh->data);
 
         material = sgl::ShaderMaterial::load_from_file("shaders/2.vs", "shaders/2.fs");
-        vao = sgl::MeshTool::create_VAO(*data);
 
-        sgl::DrawStep::DrawArrays arrays;
-        arrays.mode = sgl::DrawStep::TRIANGLE_FAN;
+        sgl::DrawCall::DrawArrays arrays;
+        arrays.mode = sgl::DrawCall::TRIANGLE_FAN;
         arrays.count = 4;
-        draw_step = std::make_shared<sgl::DrawStep>(arrays);
+        mesh->steps->draw_calls.push_back(arrays);
 
         texture = sgl::Texture2D::load_from_file("textures/sky.png");
         texture->bind();
