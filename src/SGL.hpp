@@ -11,6 +11,7 @@
 #include "system/time.hpp"
 #include "system/window.hpp"
 #include "system/image.hpp"
+#include "system/math.hpp"
 
 #include "gl/draw_call.hpp"
 #include "gl/debugger.hpp"

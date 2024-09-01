@@ -49,6 +49,9 @@ protected:
     void _initialize() override
     {
         rect = std::make_shared<Rect>();
+        sgl::Coordinate a;
+        std::cout << a << std::endl
+                  << a.get_coordinate(glm::vec3(2, 3, 4));
     }
 
     void _draw() override

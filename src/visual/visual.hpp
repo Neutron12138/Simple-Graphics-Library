@@ -29,7 +29,7 @@ namespace sgl
         void show() { visible = true; }
         void hide() { visible = false; }
 
-        void request_draw(DrawMode draw_mode = NORMAL)
+        virtual void request_draw(DrawMode draw_mode = NORMAL)
         {
             if (visible)
                 _draw(draw_mode);

@@ -3,23 +3,12 @@
 
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
+#include "../system/math.hpp"
 
 namespace sgl
 {
     class Transform3D
     {
-    public:
-        const glm::vec3 POSITIVE_X = glm::vec3(1.0f, 0.0f, 0.0f);
-        const glm::vec3 NEGATIVE_X = -POSITIVE_X;
-
-        const glm::vec3 POSITIVE_Y = glm::vec3(0.0f, 1.0f, 0.0f);
-        const glm::vec3 NEGATIVE_Y = -POSITIVE_Y;
-
-        const glm::vec3 POSITIVE_Z = glm::vec3(0.0f, 0.0f, 1.0f);
-        const glm::vec3 NEGATIVE_Z = -POSITIVE_Z;
-
-        const glm::mat4 IDENTITY_MATRIX = glm::mat4(1.0f);
-
     public:
         glm::mat4 matrix = IDENTITY_MATRIX;
 
